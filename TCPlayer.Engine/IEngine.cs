@@ -8,6 +8,7 @@ namespace TCPlayer.Engine
         int CurrentDeviceID { get; }
         EqualizerConfig Equalizer { get; set; }
         bool IsPaused { get; }
+        bool IsPlaying { get; }
         MediaKind CurrentMediaKind { get; }
         double Length { get; }
         double Position { get; set; }

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace TCPlayer.Engine
 {
-    public partial class Engine
+    public interface IEngineConfiguration
     {
-
+        string SoundFontPath { get; set; }
     }
 }
