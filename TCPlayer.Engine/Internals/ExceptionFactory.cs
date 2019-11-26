@@ -1,8 +1,10 @@
-﻿namespace TCPlayer.Engine.Internals
+﻿using ManagedBass;
+
+namespace TCPlayer.Engine.Internals
 {
-    internal class ExceptionFactory
+    internal static class ExceptionFactory
     {
-        public static EngineException Create(int errorCode, string message)
+        public static EngineException Create(Errors errorCode, string message)
         {
             throw new EngineException($"{message}, code: {errorCode}");
         }

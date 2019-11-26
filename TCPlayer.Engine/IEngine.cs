@@ -7,13 +7,12 @@ namespace TCPlayer.Engine
     {
         int CurrentDeviceID { get; }
         EqualizerConfig Equalizer { get; set; }
-        bool IsPaused { get; }
         bool IsPlaying { get; }
         MediaKind CurrentMediaKind { get; }
         double Length { get; }
         double Position { get; set; }
         float Volume { get; set; }
-        void SetDevice(int DeviceId);
+        void SetDevice(int? DeviceId);
         void Load(string url);
         void PlayPause();
         void Stop();

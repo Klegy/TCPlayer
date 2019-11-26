@@ -23,8 +23,8 @@ namespace TCPlayer.Engine
         private DownloadProcedure _callback;
         private EqualizerConfig _eqConfig;
         private GCHandle _eqHandle;
-        private bool _paused;
         private bool _isplaying;
+        private bool _initialized;
         private ChannelInfo _sourceInfo;
         private readonly IEngineConfiguration _configuration;
         private static readonly string[] _plugins = new string[]
@@ -45,7 +45,7 @@ namespace TCPlayer.Engine
             _eqConfig = new EqualizerConfig();
 
             // set peaking equalizer effect with no bands
-            _fxHandle = Bass.ChannelSetFX(chHandle, EffectType.PeakEQ, 0); // BASS_ChannelSetFX(chan, BASS_FX_BFX_PEAKEQ, 0);
+            _fxHandle = Bass.ChannelSetFX(chHandle, EffectType.PeakEQ, 0);
 
             _eq.fGain = fGain;
             _eq.fQ = EqConstants.fQ;
@@ -126,12 +126,6 @@ namespace TCPlayer.Engine
                 _eqConfig = value;
                 UpdateFxConfiguration(_eqConfig);
             }
-        }
-
-
-        public bool IsPaused
-        {
-            get { return _paused || (_mixerHandle == 0); }
         }
 
         public MediaKind CurrentMediaKind
@@ -228,16 +222,14 @@ namespace TCPlayer.Engine
 
         public void PlayPause()
         {
-            if (_paused)
+            if (!IsPlaying)
             {
                 Bass.ChannelPlay(_mixerHandle, false);
-                _paused = false;
                 IsPlaying = true;
             }
             else
             {
                 Bass.ChannelPause(_mixerHandle);
-                _paused = true;
                 IsPlaying = false;
             }
         }
@@ -246,7 +238,6 @@ namespace TCPlayer.Engine
         {
             Bass.ChannelStop(_mixerHandle);
             IsPlaying = false;
-            _paused = false;
         }
 
         public void Load(string url)
@@ -286,27 +277,49 @@ namespace TCPlayer.Engine
             }
 
             if (_sourceHandle == 0)
-                ExceptionFactory.Create(1, "File Load failed");
+                ExceptionFactory.Create(Bass.LastError, "File Load failed");
 
             _sourceInfo = Bass.ChannelGetInfo(_sourceHandle);
             _mixerHandle = BassMix.CreateMixerStream(_sourceInfo.Frequency, _sourceInfo.Channels, mixerflags);
 
             if (_mixerHandle == 0)
-                ExceptionFactory.Create(2, "Mixer failed");
+                ExceptionFactory.Create(Bass.LastError, "Mixer failed");
 
             if (!BassMix.MixerAddChannel(_mixerHandle, _sourceHandle, BassFlags.MixerDownMix))
-                ExceptionFactory.Create(3, "Channel mixing failed");
+                ExceptionFactory.Create(Bass.LastError, "Channel mixing failed");
 
             Bass.ChannelSetAttribute(_mixerHandle, ChannelAttribute.Volume, _lastvol);
             InitEq(ref _mixerHandle);
             Bass.ChannelPlay(_mixerHandle, false);
-            _paused = false;
             IsPlaying = true;
         }
 
-        public void SetDevice(int DeviceId)
+        public void SetDevice(int? DeviceId)
         {
-            throw new NotImplementedException();
+            CurrentDeviceID = DeviceId.HasValue ? DeviceId.Value : -1;
+
+            if (_initialized) 
+            {
+                FreeHandles();
+                Bass.Free();
+                _initialized = false;
+            }
+
+            _initialized = Bass.Init(CurrentDeviceID, _configuration.Frequency, DeviceInitFlags.Frequency, IntPtr.Zero);
+            if (_initialized)
+            {
+                Bass.Start();
+
+                if (_configuration.RememberDeviceId)
+                {
+                    _configuration.LastDeviceId = CurrentDeviceID;
+                }
+
+            }
+            else
+            {
+                ExceptionFactory.Create(Bass.LastError, "Output init error");
+            }
         }
     }
 }
