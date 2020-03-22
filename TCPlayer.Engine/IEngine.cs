@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using TCPlayer.Engine.Domain;
 
 namespace TCPlayer.Engine
 {
@@ -9,6 +10,7 @@ namespace TCPlayer.Engine
         EqualizerConfig Equalizer { get; set; }
         bool IsPlaying { get; }
         MediaKind CurrentMediaKind { get; }
+        TrackMetaInfo MetaInfo { get; }
         double Length { get; }
         double Position { get; set; }
         float Volume { get; set; }

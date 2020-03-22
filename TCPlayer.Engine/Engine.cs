@@ -10,6 +10,7 @@ using ManagedBass.Cd;
 using ManagedBass.Fx;
 using ManagedBass.Midi;
 using ManagedBass.Mix;
+using TCPlayer.Engine.Domain;
 using TCPlayer.Engine.Internals;
 
 namespace TCPlayer.Engine
@@ -187,6 +188,12 @@ namespace TCPlayer.Engine
             }
         }
 
+        public TrackMetaInfo MetaInfo
+        {
+            get;
+            private set;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void Dispose()
@@ -269,11 +276,13 @@ namespace TCPlayer.Engine
             {
                 _sourceHandle = Bass.MusicLoad(url, 0, 0, sourceflags);
                 CurrentMediaKind = MediaKind.Tracker;
+                MetaInfo = TrackMetaInfoFactory.CreateTrackerInfo(url, _sourceHandle);
             }
             else
             {
                 _sourceHandle = Bass.CreateStream(url, 0, 0, sourceflags);
                 CurrentMediaKind = MediaKind.File;
+                MetaInfo = TrackMetaInfoFactory.CreateFileInfo(url);
             }
 
             if (_sourceHandle == 0)
@@ -292,6 +301,7 @@ namespace TCPlayer.Engine
             InitEq(ref _mixerHandle);
             Bass.ChannelPlay(_mixerHandle, false);
             IsPlaying = true;
+            NotifyPropertyChanged(nameof(MetaInfo));
         }
 
         public void SetDevice(int? DeviceId)
