@@ -23,6 +23,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -177,15 +178,19 @@ namespace TCPlayer.Controls.SongInfo
             set;
         }
 
-        private async void TryDownloadingCover(string input, Uri fallbackImg)
+        private async ValueTask TryDownloadingCover(string input, Uri fallbackImg)
         {
             try
             {
                 byte[] buffer = await iTunesLookup.GetCoverFor(input);
                 if (buffer != null)
+                {
                     Cover = iTunesLookup.CreateBitmap(buffer);
+                }
                 else
+                {
                     Cover = new BitmapImage(fallbackImg);
+                }
             }
             catch (Exception)
             {
@@ -223,7 +228,7 @@ namespace TCPlayer.Controls.SongInfo
         /// Main entry point for media info update
         /// </summary>
         /// <param name="file">File</param>
-        public void UpdateMediaInfo(string file)
+        public async void UpdateMediaInfo(string file)
         {
             FileName = file;
             var notify = Properties.Settings.Default.TrackChangeNotification;
@@ -289,7 +294,7 @@ namespace TCPlayer.Controls.SongInfo
                 {
                     var query = $"{Artist} - {Title}";
                     if (!string.IsNullOrEmpty(query))
-                        TryDownloadingCover(query, new Uri("/TCPlayer;component/Style/Images/unknown.png", UriKind.Relative));
+                        await TryDownloadingCover(query, new Uri("/TCPlayer;component/Style/Images/unknown.png", UriKind.Relative));
                 }
 
 
@@ -317,7 +322,7 @@ namespace TCPlayer.Controls.SongInfo
         /// <param name="track">Track</param>
         /// <param name="notify">send notification or not</param>
         /// <param name="size">File size in bytes</param>
-        private void UpdateCDFlags(int track, bool notify, int size)
+        private async void UpdateCDFlags(int track, bool notify, int size)
         {
             FileName = string.Format("CD Track #{0}", track);
             //GetFileSize(size);
@@ -331,7 +336,7 @@ namespace TCPlayer.Controls.SongInfo
                 Artist = App.CdData[string.Format("PERFORMER{0}", track)];
                 Title = App.CdData[string.Format("TITLE{0}", track)];
                 Album = App.CdData["TITLE0"];
-                TryDownloadingCover($"{Artist} - {Title}", new Uri("/TCPlayer;component/Style/Images/disk.png", UriKind.Relative));
+                await TryDownloadingCover($"{Artist} - {Title}", new Uri("/TCPlayer;component/Style/Images/disk.png", UriKind.Relative));
             }
             if (notify)
             {
@@ -370,7 +375,7 @@ namespace TCPlayer.Controls.SongInfo
         /// <param name="album"></param>
         /// <param name="year"></param>
         /// <param name="size"></param>
-        private void SetInfoText(string artisttitle, string album, string year, string size)
+        private async void SetInfoText(string artisttitle, string album, string year, string size)
         {
             artisttitle = string.IsNullOrEmpty(artisttitle) ? string.Format("{0} - {1}", Properties.Resources.SongData_UnknownArtist, Properties.Resources.SongData_UnknownSong) : artisttitle;
             year = string.IsNullOrEmpty(year) ? DateTime.Now.Year.ToString() : year;
@@ -379,11 +384,14 @@ namespace TCPlayer.Controls.SongInfo
             sb.AppendFormat("{0}\r\n", artisttitle);
             sb.AppendFormat("{0} ({1})\r\n", album, year);
             sb.Append(size);
-            InfoText.Text = sb.ToString();
 
-            if (!string.IsNullOrEmpty(artisttitle))
+            if (InfoText.Text != sb.ToString())
             {
-                TryDownloadingCover(artisttitle, new Uri("/TCPlayer;component/Style/Images/network.png", UriKind.Relative));
+                InfoText.Text = sb.ToString();
+                if (!string.IsNullOrEmpty(artisttitle))
+                {
+                    await TryDownloadingCover(artisttitle, new Uri("/TCPlayer;component/Style/Images/network.png", UriKind.Relative));
+                }
             }
         }
 

@@ -18,20 +18,15 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace TCPlayer.Code.iTunesLookup
 {
-    public class Rootobject
-    {
-        public int resultCount { get; set; }
-        public Result[] results { get; set; }
-    }
-
     public class Result
     {
         public string wrapperType { get; set; }
         public string kind { get; set; }
-        public string artistId { get; set; }
+        public int artistId { get; set; }
         public int collectionId { get; set; }
         public int trackId { get; set; }
         public string artistName { get; set; }
@@ -46,8 +41,8 @@ namespace TCPlayer.Code.iTunesLookup
         public string artworkUrl30 { get; set; }
         public string artworkUrl60 { get; set; }
         public string artworkUrl100 { get; set; }
-        public float collectionPrice { get; set; }
-        public float trackPrice { get; set; }
+        public double collectionPrice { get; set; }
+        public double trackPrice { get; set; }
         public DateTime releaseDate { get; set; }
         public string collectionExplicitness { get; set; }
         public string trackExplicitness { get; set; }
@@ -59,7 +54,12 @@ namespace TCPlayer.Code.iTunesLookup
         public string country { get; set; }
         public string currency { get; set; }
         public string primaryGenreName { get; set; }
-        public string contentAdvisoryRating { get; set; }
         public bool isStreamable { get; set; }
+    }
+
+    public class RootObject
+    {
+        public int resultCount { get; set; }
+        public List<Result> results { get; set; }
     }
 }

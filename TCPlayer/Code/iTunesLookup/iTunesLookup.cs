@@ -49,15 +49,21 @@ namespace TCPlayer.Code.iTunesLookup
 
                         var response = client.DownloadString(fulladdress);
 
-                        var responseObject = JsonSerializer.Deserialize<Rootobject>(response);
+                        var responseObject = JsonSerializer.Deserialize<RootObject>(response);
 
-                        string artwork = responseObject.results[0].artworkUrl100;
-                        artwork = artwork.Replace("100x100", "600x600");
+                        if (responseObject.resultCount > 0)
+                        {
 
-                        return client.DownloadData(artwork);
+                            string artwork = responseObject.results[0].artworkUrl100;
+                            artwork = artwork.Replace("100x100", "600x600");
+
+                            return client.DownloadData(artwork);
+                        }
+
+                        return null;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     return null;
                 }

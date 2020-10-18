@@ -13,6 +13,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Engine\Engine.sha256" />
+    <None Remove="icon.png" />
+    <None Remove="Style\Images\unknown.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Style\Images\unknown.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LibItunesXmlDb\LibItunesXmlDb.csproj" />
     <ProjectReference Include="..\ManagedBass\ManagedBass.csproj" />
   </ItemGroup>
@@ -129,6 +139,7 @@
     <Content Include="Radio\Custom.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="icon.png" />
     <Resource Include="Lib\WPFSoundVis\Spectrum Analyzer\WPFSoundVisualizationLib.SpectrumAnalyzer.Icon.Large.png" />
     <Resource Include="Lib\radiotray.hu.xml" />
     <Resource Include="Lib\radiotray.xml" />
@@ -137,6 +148,7 @@
     <Content Include="pluginst.inf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Engine\Engine.sha256" />
     <PackageReference Include="System.Text.Json" Version="4.7.2" />
     <Resource Include="Style\Images\midi.png" />
     <Resource Include="Style\Images\music.png" />
