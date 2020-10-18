@@ -63,7 +63,7 @@ namespace TCPlayer.Code.iTunesLookup
                         return null;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return null;
                 }
