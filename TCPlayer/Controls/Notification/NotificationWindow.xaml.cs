@@ -30,8 +30,8 @@ namespace TCPlayer.Controls.Notification
     {
         private DispatcherTimer _timer;
         private int _autoclose;
-        private Storyboard _opening;
-        private Storyboard _closing;
+        private Storyboard? _opening;
+        private Storyboard? _closing;
 
 
         public NotificationWindow(int autoclosetime = 2000)
@@ -39,7 +39,8 @@ namespace TCPlayer.Controls.Notification
             InitializeComponent();
             _opening = FindResource("Opening") as Storyboard;
             _closing = FindResource("Closing") as Storyboard;
-            _closing.Completed += _closing_Completed;
+            if (_closing != null)
+                _closing.Completed += _closing_Completed;
             _timer = new DispatcherTimer();
             _autoclose = autoclosetime;
             _timer.Interval = TimeSpan.FromMilliseconds(100);
@@ -53,10 +54,11 @@ namespace TCPlayer.Controls.Notification
             BeginStoryboard(_opening);
         }
 
-        private void _closing_Completed(object sender, EventArgs e)
+        private void _closing_Completed(object? sender, EventArgs e)
         {
             Visibility = Visibility.Collapsed;
-            _closing.Completed -= _closing_Completed;
+            if (_closing != null)
+                _closing.Completed -= _closing_Completed;
         }
 
         public string Row1
@@ -65,13 +67,13 @@ namespace TCPlayer.Controls.Notification
             set { TbRow1.Text = value; }
         }
 
-        public string Row2
+        public string? Row2
         {
             get { return TbRow2.Text; }
             set { TbRow2.Text = value; }
         }
 
-        public string Row3
+        public string? Row3
         {
             get { return TbRow3.Text; }
             set { TbRow3.Text = value; }
@@ -84,7 +86,7 @@ namespace TCPlayer.Controls.Notification
             _timer.Start();
         }
 
-        private void _timer_Tick(object sender, EventArgs e)
+        private void _timer_Tick(object? sender, EventArgs e)
         {
             if (_autoclose > 0)
             {

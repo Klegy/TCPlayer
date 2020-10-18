@@ -27,13 +27,13 @@ namespace TCPlayer.Code
     public class RadioGroup
     {
         [XmlAttribute("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [XmlElement("bookmark")]
-        public List<RadioStation> Stations { get; set; }
+        public List<RadioStation>? Stations { get; set; }
 
         [XmlElement("group")]
-        public List<RadioGroup> SubGroups { get; set; }
+        public List<RadioGroup>? SubGroups { get; set; }
     }
 
     [Serializable]
@@ -41,9 +41,9 @@ namespace TCPlayer.Code
     public class RadioStation
     {
         [XmlAttribute("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [XmlAttribute("url")]
-        public string Url { get; set; }
+        public string? Url { get; set; }
     }
 }

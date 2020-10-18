@@ -24,7 +24,7 @@ namespace TCPlayer.Code
 {
     public class TrayIcon
     {
-        private NotifyIcon _icon;
+        private NotifyIcon? _icon;
 
         public TrayIcon()
         {
@@ -54,13 +54,15 @@ namespace TCPlayer.Code
 
         public void MinimizeToTray()
         {
-            _icon.Visible = true;
+            if (_icon != null)
+                _icon.Visible = true;
             App.Current.MainWindow.Visibility = System.Windows.Visibility.Collapsed;
         }
 
-        private void _icon_DoubleClick(object sender, EventArgs e)
+        private void _icon_DoubleClick(object? sender, EventArgs e)
         {
-            _icon.Visible = false;
+            if (_icon != null)
+                _icon.Visible = false;
             App.Current.MainWindow.Visibility = System.Windows.Visibility.Visible;
         }
     }

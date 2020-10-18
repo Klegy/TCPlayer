@@ -57,12 +57,6 @@ namespace TCPlayer.Controls
             }
             try
             {
-                ITunesXmlDbOptions options = new ITunesXmlDbOptions
-                {
-                    ExcludeNonExistingFiles = true,
-                    ParalelParsingEnabled = true
-                };
-                iTunes = new ITunesXmlDb(ITunesXmlDb.UserItunesDbPath, options);
                 CreateMenuItems(MenuAlbums, iTunes.Albums.Where(x => !string.IsNullOrEmpty(x)));
                 CreateMenuItems(MenuArtists, iTunes.Artists.Where(x => !string.IsNullOrEmpty(x)));
                 CreateMenuItems(MenuGenres, iTunes.Genres.Where(x => !string.IsNullOrEmpty(x)));
@@ -83,9 +77,9 @@ namespace TCPlayer.Controls
             {
                 if (sender is MenuItem s)
                 {
-                    IEnumerable<string> files = null;
-                    string tag = s.Tag.ToString();
-                    string content = s.Header.ToString();
+                    IEnumerable<string?>? files = null;
+                    string tag = s.Tag?.ToString() ?? string.Empty;
+                    string content = s.Header?.ToString() ?? string.Empty;
                     try
                     {
                         switch (tag)
@@ -116,10 +110,16 @@ namespace TCPlayer.Controls
             }
         }
 
-        public event EventHandler<IEnumerable<string>> FilesProvidedEvent;
+        public event EventHandler<IEnumerable<string?>?>? FilesProvidedEvent;
 
         public ITunesMenu()
         {
+            ITunesXmlDbOptions options = new ITunesXmlDbOptions
+            {
+                ExcludeNonExistingFiles = true,
+                ParalelParsingEnabled = true
+            };
+            iTunes = new ITunesXmlDb(ITunesXmlDb.UserItunesDbPath, options);
             InitializeComponent();
             MenuItunes_Loaded();
         }

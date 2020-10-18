@@ -22,7 +22,7 @@ namespace TCPlayer.Controls.Notification
 {
     public class SongChangeNotification
     {
-        private static NotificationWindow _window;
+        private static NotificationWindow? _window;
         private const int Time = 3000;
 
         public static void DisplaySongChangeNotification(string row1)
@@ -30,7 +30,7 @@ namespace TCPlayer.Controls.Notification
             DisplaySongChangeNotification(row1, null, null);
         }
 
-        public static void DisplaySongChangeNotification(string row1, string row2, string row3 = null)
+        public static void DisplaySongChangeNotification(string row1, string? row2, string? row3 = null)
         {
             var position = (NotificationPosition)Properties.Settings.Default.NotificationPlace;
 
@@ -56,6 +56,9 @@ namespace TCPlayer.Controls.Notification
 
         private static void SetWindowPosition(NotificationPosition position)
         {
+            if (_window == null)
+                return;
+
             double left = 0;
             double top = 0;
             double margin = 10;

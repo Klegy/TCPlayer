@@ -44,21 +44,23 @@ namespace TCPlayer.Controls.Notification
 
         private static void PositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var sender = d as NotificationPlaceSelector;
-            sender.SetSelection((int)e.NewValue);
+            if (d is NotificationPlaceSelector sender)
+                sender.SetSelection((int)e.NewValue);
         }
 
         private void SetSelection(int value)
         {
-            foreach (RadioButton rb in SelectorGrid.Children)
+            foreach (RadioButton? rb in SelectorGrid.Children)
             {
-                if (Convert.ToInt32(rb.Tag) == value)
+                if (rb == null) continue;
+
+                if (Convert.ToInt32(rb?.Tag) == value)
                 {
-                    rb.IsChecked = true;
+                    rb!.IsChecked = true;
                 }
                 else
                 {
-                    rb.IsChecked = false;
+                    rb!.IsChecked = false;
                 }
             }
         }
@@ -66,8 +68,9 @@ namespace TCPlayer.Controls.Notification
         private void Update(object sender, RoutedEventArgs e)
         {
             int ret = 0;
-            foreach (RadioButton rb in SelectorGrid.Children)
+            foreach (RadioButton? rb in SelectorGrid.Children)
             {
+                if (rb == null) continue;
                 if (rb.IsChecked == true)
                 {
                     ret = Convert.ToInt32(rb.Tag);

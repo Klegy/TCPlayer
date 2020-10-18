@@ -68,7 +68,7 @@ namespace TCPlayer.Code
                 }
             }
 
-            public event EventHandler<KeyPressedEventArgs> KeyPressed;
+            public event EventHandler<KeyPressedEventArgs>? KeyPressed;
 
             public Window()
             {
@@ -86,12 +86,12 @@ namespace TCPlayer.Code
         /// <summary>
         /// A hot key has been pressed.
         /// </summary>
-        public event EventHandler<KeyPressedEventArgs> KeyPressed;
+        public event EventHandler<KeyPressedEventArgs>? KeyPressed;
 
         public KeyboardHook()
         {
             // register the event of the inner native window.
-            _window.KeyPressed += delegate (object sender, KeyPressedEventArgs args)
+            _window.KeyPressed += delegate (object? sender, KeyPressedEventArgs args)
             {
                 KeyPressed?.Invoke(this, args);
             };

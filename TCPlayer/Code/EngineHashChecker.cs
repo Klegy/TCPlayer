@@ -44,16 +44,16 @@ namespace TCPlayer.Code
         private void GetStoredHashes()
         {
             var currentdir = AppDomain.CurrentDomain.BaseDirectory;
-            _storedHashes = new Dictionary<string, string>();
-            Assembly assembly = Assembly.GetAssembly(typeof(EngineHashChecker));
-            using (var stream = assembly.GetManifestResourceStream("TCPlayer.Engine.Engine.sha256"))
+            Assembly? assembly = Assembly.GetAssembly(typeof(EngineHashChecker));
+            using (var stream = assembly?.GetManifestResourceStream("TCPlayer.Engine.Engine.sha256"))
             {
-                string line;
+                string? line;
+                if (stream == null) return;
                 using (var streamreader = new StreamReader(stream))
                 {
                     while ((line = streamreader.ReadLine()) != null)
                     {
-                        string[] parts = line.Split(' ');
+                        string[] parts = line?.Split(' ') ?? new string[1] { string.Empty };
                         var fullpath = Path.Combine(currentdir + @"engine\", parts[1].Replace("*", ""));
                         _storedHashes.Add(fullpath, parts[0]);
                     }
@@ -63,6 +63,7 @@ namespace TCPlayer.Code
 
         public EngineHashChecker()
         {
+            _storedHashes = new Dictionary<string, string>();
             GetStoredHashes();
         }
 

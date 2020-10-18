@@ -65,7 +65,7 @@ namespace TCPlayer.Controls
             EqSliderChange?.Invoke(this, new RoutedEventArgs());
         }
 
-        public event RoutedEventHandler EqSliderChange;
+        public event RoutedEventHandler? EqSliderChange;
 
         public Equalizer()
         {

@@ -27,6 +27,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Media.Animation;
 using TCPlayer.Properties;
 using WPFSoundVisualizationLib;
 
@@ -38,7 +39,7 @@ namespace TCPlayer.Code
         private readonly int _maxfft;
         private readonly DownloadProcedure _callback;
         private readonly PeakEQParameters _eq;
-        private EqConfig _eqConfig;
+        private EqConfig? _eqConfig;
         private GCHandle _handle;
         private bool _initialized;
         private bool _isplaying;
@@ -50,6 +51,10 @@ namespace TCPlayer.Code
         private Player()
         {
             var enginedir = AppDomain.CurrentDomain.BaseDirectory;
+
+            if (enginedir == null)
+                throw new InvalidOperationException();
+
             if (Is64Bit) enginedir = Path.Combine(enginedir, @"Engine\x64");
             else enginedir = Path.Combine(enginedir, @"Engine\x86");
             Bass.Load(enginedir);
@@ -181,9 +186,9 @@ namespace TCPlayer.Code
             }
         }
 
-        public event EventHandler<string> MetaChanged;
+        public event EventHandler<string>? MetaChanged;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public static Player Instance
         {
@@ -199,13 +204,14 @@ namespace TCPlayer.Code
             private set;
         }
 
-        public EqConfig EqConfig
+        public EqConfig? EqConfig
         {
             get { return _eqConfig; }
             set
             {
                 _eqConfig = value;
-                UpdateFxConfiguration(_eqConfig);
+                if (_eqConfig != null)
+                    UpdateFxConfiguration(_eqConfig);
             }
         }
 
@@ -304,7 +310,7 @@ namespace TCPlayer.Code
         /// Change output device
         /// </summary>
         /// <param name="name">string device</param>
-        public void ChangeDevice(string name = null)
+        public void ChangeDevice(string? name = null)
         {
             if (name == null)
             {
@@ -371,7 +377,7 @@ namespace TCPlayer.Code
             Bass.PluginFree(0);
         }
 
-        public bool GetChannelData(out short[] data, float seconds)
+        public bool GetChannelData(out short[]? data, float seconds)
         {
             var length = (int)Bass.ChannelSeconds2Bytes(_mixer, seconds);
             if (length > 0)
@@ -394,7 +400,7 @@ namespace TCPlayer.Code
             for (int i = 1; i < Bass.DeviceCount; i++)
             {
                 var device = Bass.GetDeviceInfo(i);
-                if (device.IsEnabled) _devices.Add(device.Name);
+                if (device.IsEnabled) _devices.Add(device.Name ?? "Unknown device");
             }
             return _devices.ToArray();
         }
@@ -448,7 +454,7 @@ namespace TCPlayer.Code
             {
                 _source = Bass.CreateStream(file, 0, sourceflags, _callback, IntPtr.Zero);
                 _isstream = true;
-                App.RecentUrls.Add(file);
+                App.RecentUrls?.Add(file);
             }
             else if (file.StartsWith("cd://"))
             {

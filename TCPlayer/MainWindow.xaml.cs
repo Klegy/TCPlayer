@@ -40,11 +40,11 @@ namespace TCPlayer
         private readonly DispatcherTimer _timer;
         private RepeatMode _repeatMode;
         private bool _isdrag;
-        private KeyboardHook _keyboardhook;
+        private KeyboardHook? _keyboardhook;
         private bool _loaded;
-        private Player _player;
+        private Player? _player;
         private float _prevvol;
-        private TrayIcon _tray;
+        private TrayIcon? _tray;
         private HwndSource hsource;
         private IntPtr hwnd;
 
@@ -172,7 +172,7 @@ namespace TCPlayer
             _tray.MinimizeToTray();
         }
 
-        private void BtnMute_Click(object sender, RoutedEventArgs e)
+        private void BtnMute_Click(object? sender, RoutedEventArgs? e)
         {
             if (!_loaded) return;
             if (BtnMute.IsChecked == true)
@@ -509,7 +509,7 @@ namespace TCPlayer
             WindowState = WindowState.Minimized;
         }
 
-        private void VolSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void VolSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double>? e)
         {
             if (!_loaded) return;
             _player.Volume = (float)VolSlider.Value;

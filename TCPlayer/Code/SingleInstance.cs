@@ -86,7 +86,7 @@ namespace TCPlayer.Code
             }
         }
 
-        public event Action<string> ReceiveString;
+        public event Action<string>? ReceiveString;
 
         public SingleInstanceApp(string AppName)
         {

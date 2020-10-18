@@ -36,12 +36,12 @@ namespace TCPlayer.Controls
             Process.Start("https://webmaster442.github.io/TCPlayer/");
         }
 
-        private void LoadAbout(string fname = null)
+        private void LoadAbout(string? fname = null)
         {
             try
             {
                 var culture = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-                Uri f = null;
+                Uri? f = null;
                 if (string.IsNullOrEmpty(fname)) f = new Uri("/TCPlayer;component/Lib/About." + culture + ".txt", UriKind.Relative);
                 else f = new Uri("/TCPlayer;component/Lib/" + fname, UriKind.Relative);
                 var rs = Application.GetResourceStream(f);
@@ -63,7 +63,7 @@ namespace TCPlayer.Controls
             LoadAbout();
         }
 
-        public Action OkClicked
+        public Action? OkClicked
         {
             get;
             set;

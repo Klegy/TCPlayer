@@ -45,13 +45,13 @@ namespace TCPlayer.Code
 
             type.InvokeMember("CheckReentrancy", bindflags, null, collection, null);
 
-            var itemsProp = type.BaseType.GetProperty("Items", BindingFlags.NonPublic | BindingFlags.FlattenHierarchy | BindingFlags.Instance);
+            var itemsProp = type.BaseType?.GetProperty("Items", BindingFlags.NonPublic | BindingFlags.FlattenHierarchy | BindingFlags.Instance);
 
-            var privateItems = itemsProp.GetValue(collection) as IList<T>;
+            var privateItems = itemsProp?.GetValue(collection) as IList<T>;
 
             foreach (var item in items)
             {
-                privateItems.Add(item);
+                privateItems?.Add(item);
             }
 
             type.InvokeMember("OnPropertyChanged", bindflags, null,

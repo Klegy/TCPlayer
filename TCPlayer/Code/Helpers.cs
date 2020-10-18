@@ -31,7 +31,7 @@ namespace TCPlayer.Code
         /// </summary>
         /// <param name="ex">Exception message</param>
         /// <param name="description">Average human readable error</param>
-        public static void ErrorDialog(Exception ex, string description = null)
+        public static void ErrorDialog(Exception ex, string? description = null)
         {
             Dispatcher.CurrentDispatcher.Invoke(() =>
             {

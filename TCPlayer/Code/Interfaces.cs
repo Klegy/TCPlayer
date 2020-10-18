@@ -22,6 +22,6 @@ namespace TCPlayer.Code
 {
     public interface IDialog
     {
-        Action OkClicked { get; set; }
+        Action? OkClicked { get; set; }
     }
 }

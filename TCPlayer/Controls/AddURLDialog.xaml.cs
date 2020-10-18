@@ -33,7 +33,7 @@ namespace TCPlayer.Controls
             LbRecent.ItemsSource = App.RecentUrls;
         }
 
-        public Action OkClicked
+        public Action? OkClicked
         {
             get; set;
         }

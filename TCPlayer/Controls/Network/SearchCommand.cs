@@ -25,9 +25,9 @@ namespace TCPlayer.Controls.Network
 {
     public class SearchCommand : ICommand
     {
-        public string UrlParameter { get; set; }
+        public string? UrlParameter { get; set; }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {

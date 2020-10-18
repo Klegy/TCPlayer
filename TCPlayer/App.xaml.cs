@@ -33,9 +33,9 @@ namespace TCPlayer
         internal const string Formats = "*.mp1;*.mp2;*.mp3;*.mp3pro;*.mp4;*.m4a;*.m4b;*.aac;*.flac;*.ac3;*.wv;*.wav;*.wma;*.asf;*.ogg;*.midi;*.mid;*.rmi;*.kar;*.xm;*.it;*.s3m;*.mod;*.mtm;*.umx;*.mo3;*.ape;*.mpc;*.mp+;*.mpp;*.ofr;*.ofs;*.spx;*.tta;*.dsf;*.dsdiff;*.opus";
         internal const string Playlists = "*.pls;*.m3u;*.wpl;*.asx";
 
-        internal static Dictionary<string, string> CdData;
-        internal static string DiscID;
-        internal static HashSet<string> RecentUrls;
+        internal static Dictionary<string, string>? CdData;
+        internal static string? DiscID;
+        internal static HashSet<string>? RecentUrls;
 
         internal static void SetAppCulture()
         {
@@ -63,13 +63,13 @@ namespace TCPlayer
             foreach (var item in items)
             {
                 if (string.IsNullOrEmpty(item)) continue;
-                RecentUrls.Add(item);
+                RecentUrls?.Add(item);
             }
         }
 
         public static void SaveRecentUrls()
         {
-            if (!TCPlayer.Properties.Settings.Default.RememberRecentURLs) return;
+            if (RecentUrls == null || !TCPlayer.Properties.Settings.Default.RememberRecentURLs) return;
             var sb = new System.Text.StringBuilder();
             foreach (var url in RecentUrls) sb.AppendLine(url);
             TCPlayer.Properties.Settings.Default.RecentURLs = sb.ToString();
@@ -88,7 +88,7 @@ namespace TCPlayer
                 {
                     try
                     {
-                        ResourceSet rs = rm.GetResourceSet(culture, true, false);
+                        ResourceSet? rs = rm.GetResourceSet(culture, true, false);
                         if (rs != null)
                         {
                             if (string.IsNullOrEmpty(culture.Name))

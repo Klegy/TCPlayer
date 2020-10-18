@@ -37,7 +37,7 @@ namespace TCPlayer.Controls
             get { return LbDevices.SelectedIndex; }
         }
 
-        public Action OkClicked
+        public Action? OkClicked
         {
             get; set;
         }
@@ -47,7 +47,7 @@ namespace TCPlayer.Controls
             get
             {
                 var item = CbSampleRate.SelectedItem as ComboBoxItem;
-                return Convert.ToInt32(item.Content);
+                return Convert.ToInt32(item?.Content);
             }
         }
     }

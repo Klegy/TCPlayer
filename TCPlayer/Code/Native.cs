@@ -38,7 +38,7 @@ namespace TCPlayer.Code
         [DllImport("kernel32.dll", EntryPoint = "FreeLibrary")]
         public static extern bool FreeLibrary(IntPtr hLib);
 
-        public static string[] IntPtrToArray(IntPtr pointer)
+        public static string[]? IntPtrToArray(IntPtr pointer)
         {
             unsafe
             {

@@ -52,6 +52,6 @@ namespace WPFSoundVisualizationLib
         /// <param name="data">raw channel data</param>
         /// <param name="seconds">time frame for raw channel data</param>
         /// <returns>True if data was written to the buffer, otherwise false.</returns>
-        bool GetChannelData(out short[] data, float seconds);
+        bool GetChannelData(out short[]? data, float seconds);
     }
 }

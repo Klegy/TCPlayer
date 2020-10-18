@@ -58,9 +58,10 @@ namespace TCPlayer.Code
 
         private void DecomissionMenu()
         {
-            foreach (MenuItem child in _target.Items)
+            foreach (MenuItem? child in _target.Items)
             {
-                child.Click -= Mnu_Click;
+                if (child != null)
+                    child.Click -= Mnu_Click;
             }
         }
 
@@ -87,8 +88,8 @@ namespace TCPlayer.Code
             ChapterClicked?.Invoke(sender, pos);
         }
 
-        public event EventHandler<double> ChapterClicked;
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler<double>? ChapterClicked;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public ChapterProvider(ContextMenu target)
         {

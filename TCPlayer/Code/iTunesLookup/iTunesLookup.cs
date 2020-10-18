@@ -28,7 +28,7 @@ namespace TCPlayer.Code.iTunesLookup
 {
     internal static class iTunesLookup
     {
-        public static Task<byte[]> GetCoverFor(string query)
+        public static Task<byte[]?> GetCoverFor(string query)
         {
             return Task.Run(() =>
             {
@@ -51,11 +51,11 @@ namespace TCPlayer.Code.iTunesLookup
 
                         var responseObject = JsonSerializer.Deserialize<RootObject>(response);
 
-                        if (responseObject.resultCount > 0)
+                        if (responseObject != null && responseObject.resultCount > 0)
                         {
 
-                            string artwork = responseObject.results[0].artworkUrl100;
-                            artwork = artwork.Replace("100x100", "600x600");
+                            string? artwork = responseObject.results?[0].artworkUrl100;
+                            artwork = artwork?.Replace("100x100", "600x600");
 
                             return client.DownloadData(artwork);
                         }
