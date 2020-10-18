@@ -6,13 +6,13 @@ using System.Runtime.InteropServices;
 
 namespace ManagedBass.Ape
 {
-    	/// <summary>
+    /// <summary>
     /// Wraps BassApe
     /// </summary> 
     /// <remarks>
     /// Supports .ape, .ap1
     /// </remarks>
-	    public static  class BassApe
+    public static class BassApe
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -48,30 +48,30 @@ namespace ManagedBass.Ape
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		/// <summary>
-		/// Use this library as a Plugin.
-		/// </summary>
-		public static readonly Plugin Plugin = new Plugin(DllName);
-				
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+        /// <summary>
+        /// Use this library as a Plugin.
+        /// </summary>
+        public static readonly Plugin Plugin = new Plugin(DllName);
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_APE_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags);
 
         [DllImport(DllName)]
         static extern int BASS_APE_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags);
 
-		/// <summary>Create a stream from file.</summary>
+        /// <summary>Create a stream from file.</summary>
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default)
         {
             return BASS_APE_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode);
         }
 
-		/// <summary>Create a stream from Memory (IntPtr).</summary>
+        /// <summary>Create a stream from Memory (IntPtr).</summary>
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default)
         {
             return BASS_APE_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags);
         }
 
-		/// <summary>Create a stream from Memory (byte[]).</summary>
+        /// <summary>Create a stream from Memory (byte[]).</summary>
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -83,11 +83,11 @@ namespace ManagedBass.Ape
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_APE_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user);
 
-		/// <summary>Create a stream using User File Procedures.</summary>
+        /// <summary>Create a stream using User File Procedures.</summary>
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr))
         {
             var h = BASS_APE_StreamCreateFileUser(System, Flags, Procedures, User);
@@ -101,7 +101,7 @@ namespace ManagedBass.Ape
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_APE_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User);
 
-		/// <summary>Create a stream from Url.</summary>
+        /// <summary>Create a stream from Url.</summary>
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr))
         {
             var h = BASS_APE_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User);
@@ -111,19 +111,19 @@ namespace ManagedBass.Ape
 
             return h;
         }
-		    }
+    }
 }
 
 
 namespace ManagedBass.Flac
 {
-    	/// <summary>
+    /// <summary>
     /// Wraps BassFlac
     /// </summary> 
     /// <remarks>
     /// Supports .flac
     /// </remarks>
-	    public static  class BassFlac
+    public static class BassFlac
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -159,30 +159,30 @@ namespace ManagedBass.Flac
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		/// <summary>
-		/// Use this library as a Plugin.
-		/// </summary>
-		public static readonly Plugin Plugin = new Plugin(DllName);
-				
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+        /// <summary>
+        /// Use this library as a Plugin.
+        /// </summary>
+        public static readonly Plugin Plugin = new Plugin(DllName);
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_FLAC_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags);
 
         [DllImport(DllName)]
         static extern int BASS_FLAC_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags);
 
-		/// <summary>Create a stream from file.</summary>
+        /// <summary>Create a stream from file.</summary>
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default)
         {
             return BASS_FLAC_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode);
         }
 
-		/// <summary>Create a stream from Memory (IntPtr).</summary>
+        /// <summary>Create a stream from Memory (IntPtr).</summary>
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default)
         {
             return BASS_FLAC_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags);
         }
 
-		/// <summary>Create a stream from Memory (byte[]).</summary>
+        /// <summary>Create a stream from Memory (byte[]).</summary>
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -194,11 +194,11 @@ namespace ManagedBass.Flac
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_FLAC_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user);
 
-		/// <summary>Create a stream using User File Procedures.</summary>
+        /// <summary>Create a stream using User File Procedures.</summary>
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr))
         {
             var h = BASS_FLAC_StreamCreateFileUser(System, Flags, Procedures, User);
@@ -212,7 +212,7 @@ namespace ManagedBass.Flac
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_FLAC_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User);
 
-		/// <summary>Create a stream from Url.</summary>
+        /// <summary>Create a stream from Url.</summary>
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr))
         {
             var h = BASS_FLAC_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User);
@@ -222,18 +222,19 @@ namespace ManagedBass.Flac
 
             return h;
         }
-		    }
+    }
 }
 
 
-namespace ManagedBass{
-    	/// <summary>
+namespace ManagedBass
+{
+    /// <summary>
     /// Wraps BassOpus
     /// </summary> 
     /// <remarks>
     /// Supports .opus
     /// </remarks>
-	    public static  class BassOpus
+    public static class BassOpus
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -269,30 +270,30 @@ namespace ManagedBass{
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		/// <summary>
-		/// Use this library as a Plugin.
-		/// </summary>
-		public static readonly Plugin Plugin = new Plugin(DllName);
-				
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+        /// <summary>
+        /// Use this library as a Plugin.
+        /// </summary>
+        public static readonly Plugin Plugin = new Plugin(DllName);
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_OPUS_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags);
 
         [DllImport(DllName)]
         static extern int BASS_OPUS_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags);
 
-		/// <summary>Create a stream from file.</summary>
+        /// <summary>Create a stream from file.</summary>
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default)
         {
             return BASS_OPUS_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode);
         }
 
-		/// <summary>Create a stream from Memory (IntPtr).</summary>
+        /// <summary>Create a stream from Memory (IntPtr).</summary>
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default)
         {
             return BASS_OPUS_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags);
         }
 
-		/// <summary>Create a stream from Memory (byte[]).</summary>
+        /// <summary>Create a stream from Memory (byte[]).</summary>
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -304,11 +305,11 @@ namespace ManagedBass{
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_OPUS_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user);
 
-		/// <summary>Create a stream using User File Procedures.</summary>
+        /// <summary>Create a stream using User File Procedures.</summary>
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr))
         {
             var h = BASS_OPUS_StreamCreateFileUser(System, Flags, Procedures, User);
@@ -322,7 +323,7 @@ namespace ManagedBass{
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_OPUS_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User);
 
-		/// <summary>Create a stream from Url.</summary>
+        /// <summary>Create a stream from Url.</summary>
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr))
         {
             var h = BASS_OPUS_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User);
@@ -332,18 +333,19 @@ namespace ManagedBass{
 
             return h;
         }
-		    }
+    }
 }
 
 
-namespace ManagedBass{
-    	/// <summary>
+namespace ManagedBass
+{
+    /// <summary>
     /// Wraps BassSpx
     /// </summary> 
     /// <remarks>
     /// Supports .spx
     /// </remarks>
-	    public static  class BassSpx
+    public static class BassSpx
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -379,30 +381,30 @@ namespace ManagedBass{
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		/// <summary>
-		/// Use this library as a Plugin.
-		/// </summary>
-		public static readonly Plugin Plugin = new Plugin(DllName);
-				
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+        /// <summary>
+        /// Use this library as a Plugin.
+        /// </summary>
+        public static readonly Plugin Plugin = new Plugin(DllName);
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_SPX_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags);
 
         [DllImport(DllName)]
         static extern int BASS_SPX_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags);
 
-		/// <summary>Create a stream from file.</summary>
+        /// <summary>Create a stream from file.</summary>
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default)
         {
             return BASS_SPX_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode);
         }
 
-		/// <summary>Create a stream from Memory (IntPtr).</summary>
+        /// <summary>Create a stream from Memory (IntPtr).</summary>
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default)
         {
             return BASS_SPX_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags);
         }
 
-		/// <summary>Create a stream from Memory (byte[]).</summary>
+        /// <summary>Create a stream from Memory (byte[]).</summary>
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -414,11 +416,11 @@ namespace ManagedBass{
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_SPX_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user);
 
-		/// <summary>Create a stream using User File Procedures.</summary>
+        /// <summary>Create a stream using User File Procedures.</summary>
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr))
         {
             var h = BASS_SPX_StreamCreateFileUser(System, Flags, Procedures, User);
@@ -432,7 +434,7 @@ namespace ManagedBass{
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_SPX_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User);
 
-		/// <summary>Create a stream from Url.</summary>
+        /// <summary>Create a stream from Url.</summary>
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr))
         {
             var h = BASS_SPX_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User);
@@ -442,18 +444,19 @@ namespace ManagedBass{
 
             return h;
         }
-		    }
+    }
 }
 
 
-namespace ManagedBass{
-    	/// <summary>
+namespace ManagedBass
+{
+    /// <summary>
     /// Wraps BassTta
     /// </summary> 
     /// <remarks>
     /// Supports .tta
     /// </remarks>
-	    public static  class BassTta
+    public static class BassTta
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -489,30 +492,30 @@ namespace ManagedBass{
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		/// <summary>
-		/// Use this library as a Plugin.
-		/// </summary>
-		public static readonly Plugin Plugin = new Plugin(DllName);
-				
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+        /// <summary>
+        /// Use this library as a Plugin.
+        /// </summary>
+        public static readonly Plugin Plugin = new Plugin(DllName);
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_TTA_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags);
 
         [DllImport(DllName)]
         static extern int BASS_TTA_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags);
 
-		/// <summary>Create a stream from file.</summary>
+        /// <summary>Create a stream from file.</summary>
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default)
         {
             return BASS_TTA_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode);
         }
 
-		/// <summary>Create a stream from Memory (IntPtr).</summary>
+        /// <summary>Create a stream from Memory (IntPtr).</summary>
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default)
         {
             return BASS_TTA_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags);
         }
 
-		/// <summary>Create a stream from Memory (byte[]).</summary>
+        /// <summary>Create a stream from Memory (byte[]).</summary>
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -524,11 +527,11 @@ namespace ManagedBass{
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_TTA_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user);
 
-		/// <summary>Create a stream using User File Procedures.</summary>
+        /// <summary>Create a stream using User File Procedures.</summary>
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr))
         {
             var h = BASS_TTA_StreamCreateFileUser(System, Flags, Procedures, User);
@@ -542,7 +545,7 @@ namespace ManagedBass{
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_TTA_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User);
 
-		/// <summary>Create a stream from Url.</summary>
+        /// <summary>Create a stream from Url.</summary>
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr))
         {
             var h = BASS_TTA_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User);
@@ -552,18 +555,19 @@ namespace ManagedBass{
 
             return h;
         }
-		    }
+    }
 }
 
 
-namespace ManagedBass{
-    	/// <summary>
+namespace ManagedBass
+{
+    /// <summary>
     /// Wraps BassWv
     /// </summary> 
     /// <remarks>
     /// Supports .wv
     /// </remarks>
-	    public static  class BassWv
+    public static class BassWv
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -599,30 +603,30 @@ namespace ManagedBass{
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		/// <summary>
-		/// Use this library as a Plugin.
-		/// </summary>
-		public static readonly Plugin Plugin = new Plugin(DllName);
-				
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+        /// <summary>
+        /// Use this library as a Plugin.
+        /// </summary>
+        public static readonly Plugin Plugin = new Plugin(DllName);
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_WV_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags);
 
         [DllImport(DllName)]
         static extern int BASS_WV_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags);
 
-		/// <summary>Create a stream from file.</summary>
+        /// <summary>Create a stream from file.</summary>
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default)
         {
             return BASS_WV_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode);
         }
 
-		/// <summary>Create a stream from Memory (IntPtr).</summary>
+        /// <summary>Create a stream from Memory (IntPtr).</summary>
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default)
         {
             return BASS_WV_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags);
         }
 
-		/// <summary>Create a stream from Memory (byte[]).</summary>
+        /// <summary>Create a stream from Memory (byte[]).</summary>
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -634,11 +638,11 @@ namespace ManagedBass{
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_WV_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user);
 
-		/// <summary>Create a stream using User File Procedures.</summary>
+        /// <summary>Create a stream using User File Procedures.</summary>
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr))
         {
             var h = BASS_WV_StreamCreateFileUser(System, Flags, Procedures, User);
@@ -652,7 +656,7 @@ namespace ManagedBass{
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_WV_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User);
 
-		/// <summary>Create a stream from Url.</summary>
+        /// <summary>Create a stream from Url.</summary>
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr))
         {
             var h = BASS_WV_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User);
@@ -662,18 +666,19 @@ namespace ManagedBass{
 
             return h;
         }
-		    }
+    }
 }
 
 
-namespace ManagedBass{
-    	/// <summary>
+namespace ManagedBass
+{
+    /// <summary>
     /// Wraps BassMpc
     /// </summary> 
     /// <remarks>
     /// Supports .mpc, .mpp, .mp+
     /// </remarks>
-	    public static  class BassMpc
+    public static class BassMpc
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -709,30 +714,30 @@ namespace ManagedBass{
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		/// <summary>
-		/// Use this library as a Plugin.
-		/// </summary>
-		public static readonly Plugin Plugin = new Plugin(DllName);
-				
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+        /// <summary>
+        /// Use this library as a Plugin.
+        /// </summary>
+        public static readonly Plugin Plugin = new Plugin(DllName);
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_MPC_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags);
 
         [DllImport(DllName)]
         static extern int BASS_MPC_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags);
 
-		/// <summary>Create a stream from file.</summary>
+        /// <summary>Create a stream from file.</summary>
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default)
         {
             return BASS_MPC_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode);
         }
 
-		/// <summary>Create a stream from Memory (IntPtr).</summary>
+        /// <summary>Create a stream from Memory (IntPtr).</summary>
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default)
         {
             return BASS_MPC_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags);
         }
 
-		/// <summary>Create a stream from Memory (byte[]).</summary>
+        /// <summary>Create a stream from Memory (byte[]).</summary>
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -744,11 +749,11 @@ namespace ManagedBass{
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_MPC_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user);
 
-		/// <summary>Create a stream using User File Procedures.</summary>
+        /// <summary>Create a stream using User File Procedures.</summary>
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr))
         {
             var h = BASS_MPC_StreamCreateFileUser(System, Flags, Procedures, User);
@@ -762,7 +767,7 @@ namespace ManagedBass{
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_MPC_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User);
 
-		/// <summary>Create a stream from Url.</summary>
+        /// <summary>Create a stream from Url.</summary>
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr))
         {
             var h = BASS_MPC_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User);
@@ -772,18 +777,19 @@ namespace ManagedBass{
 
             return h;
         }
-		    }
+    }
 }
 
 
-namespace ManagedBass{
-    	/// <summary>
+namespace ManagedBass
+{
+    /// <summary>
     /// Wraps BassAc3
     /// </summary> 
     /// <remarks>
     /// Supports .ac3
     /// </remarks>
-	    public static partial class BassAc3
+    public static partial class BassAc3
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -819,30 +825,30 @@ namespace ManagedBass{
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		/// <summary>
-		/// Use this library as a Plugin.
-		/// </summary>
-		public static readonly Plugin Plugin = new Plugin(DllName);
-				
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+        /// <summary>
+        /// Use this library as a Plugin.
+        /// </summary>
+        public static readonly Plugin Plugin = new Plugin(DllName);
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_AC3_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags);
 
         [DllImport(DllName)]
         static extern int BASS_AC3_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags);
 
-		/// <summary>Create a stream from file.</summary>
+        /// <summary>Create a stream from file.</summary>
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default)
         {
             return BASS_AC3_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode);
         }
 
-		/// <summary>Create a stream from Memory (IntPtr).</summary>
+        /// <summary>Create a stream from Memory (IntPtr).</summary>
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default)
         {
             return BASS_AC3_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags);
         }
 
-		/// <summary>Create a stream from Memory (byte[]).</summary>
+        /// <summary>Create a stream from Memory (byte[]).</summary>
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -854,11 +860,11 @@ namespace ManagedBass{
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_AC3_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user);
 
-		/// <summary>Create a stream using User File Procedures.</summary>
+        /// <summary>Create a stream using User File Procedures.</summary>
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr))
         {
             var h = BASS_AC3_StreamCreateFileUser(System, Flags, Procedures, User);
@@ -872,7 +878,7 @@ namespace ManagedBass{
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_AC3_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User);
 
-		/// <summary>Create a stream from Url.</summary>
+        /// <summary>Create a stream from Url.</summary>
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr))
         {
             var h = BASS_AC3_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User);
@@ -882,18 +888,19 @@ namespace ManagedBass{
 
             return h;
         }
-		    }
+    }
 }
 
 
-namespace ManagedBass{
-    	/// <summary>
+namespace ManagedBass
+{
+    /// <summary>
     /// Wraps BassHls
     /// </summary> 
     /// <remarks>
     /// HTTP Live Streaming Add-On
     /// </remarks>
-	    public static  class BassHls
+    public static class BassHls
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -929,30 +936,30 @@ namespace ManagedBass{
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		/// <summary>
-		/// Use this library as a Plugin.
-		/// </summary>
-		public static readonly Plugin Plugin = new Plugin(DllName);
-				
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+        /// <summary>
+        /// Use this library as a Plugin.
+        /// </summary>
+        public static readonly Plugin Plugin = new Plugin(DllName);
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_HLS_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags);
 
         [DllImport(DllName)]
         static extern int BASS_HLS_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags);
 
-		/// <summary>Create a stream from file.</summary>
+        /// <summary>Create a stream from file.</summary>
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default)
         {
             return BASS_HLS_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode);
         }
 
-		/// <summary>Create a stream from Memory (IntPtr).</summary>
+        /// <summary>Create a stream from Memory (IntPtr).</summary>
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default)
         {
             return BASS_HLS_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags);
         }
 
-		/// <summary>Create a stream from Memory (byte[]).</summary>
+        /// <summary>Create a stream from Memory (byte[]).</summary>
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -964,11 +971,11 @@ namespace ManagedBass{
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_HLS_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user);
 
-		/// <summary>Create a stream using User File Procedures.</summary>
+        /// <summary>Create a stream using User File Procedures.</summary>
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr))
         {
             var h = BASS_HLS_StreamCreateFileUser(System, Flags, Procedures, User);
@@ -982,7 +989,7 @@ namespace ManagedBass{
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_HLS_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User);
 
-		/// <summary>Create a stream from Url.</summary>
+        /// <summary>Create a stream from Url.</summary>
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr))
         {
             var h = BASS_HLS_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User);
@@ -992,19 +999,19 @@ namespace ManagedBass{
 
             return h;
         }
-		    }
+    }
 }
 
 
 namespace ManagedBass.Dsd
 {
-    	/// <summary>
+    /// <summary>
     /// Wraps BassDsd
     /// </summary> 
     /// <remarks>
     /// Supports .dsf, .dff, .dsd
     /// </remarks>
-	    public static partial class BassDsd
+    public static partial class BassDsd
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -1040,30 +1047,30 @@ namespace ManagedBass.Dsd
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		/// <summary>
-		/// Use this library as a Plugin.
-		/// </summary>
-		public static readonly Plugin Plugin = new Plugin(DllName);
-				
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+        /// <summary>
+        /// Use this library as a Plugin.
+        /// </summary>
+        public static readonly Plugin Plugin = new Plugin(DllName);
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_DSD_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags, int Frequency = 0);
 
         [DllImport(DllName)]
         static extern int BASS_DSD_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags, int Frequency = 0);
 
-		/// <summary>Create a stream from file.</summary>
+        /// <summary>Create a stream from file.</summary>
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default, int Frequency = 0)
         {
             return BASS_DSD_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode, Frequency);
         }
 
-		/// <summary>Create a stream from Memory (IntPtr).</summary>
+        /// <summary>Create a stream from Memory (IntPtr).</summary>
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default, int Frequency = 0)
         {
             return BASS_DSD_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags, Frequency);
         }
 
-		/// <summary>Create a stream from Memory (byte[]).</summary>
+        /// <summary>Create a stream from Memory (byte[]).</summary>
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags, int Frequency = 0)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -1075,11 +1082,11 @@ namespace ManagedBass.Dsd
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_DSD_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user, int Frequency = 0);
 
-		/// <summary>Create a stream using User File Procedures.</summary>
+        /// <summary>Create a stream using User File Procedures.</summary>
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr), int Frequency = 0)
         {
             var h = BASS_DSD_StreamCreateFileUser(System, Flags, Procedures, User, Frequency);
@@ -1093,7 +1100,7 @@ namespace ManagedBass.Dsd
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_DSD_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User, int Frequency = 0);
 
-		/// <summary>Create a stream from Url.</summary>
+        /// <summary>Create a stream from Url.</summary>
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr), int Frequency = 0)
         {
             var h = BASS_DSD_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User, Frequency);
@@ -1103,13 +1110,13 @@ namespace ManagedBass.Dsd
 
             return h;
         }
-		    }
+    }
 }
 
 
 namespace ManagedBass.Midi
 {
-        public static partial class BassMidi
+    public static partial class BassMidi
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -1145,30 +1152,30 @@ namespace ManagedBass.Midi
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		/// <summary>
-		/// Use this library as a Plugin.
-		/// </summary>
-		public static readonly Plugin Plugin = new Plugin(DllName);
-				
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+        /// <summary>
+        /// Use this library as a Plugin.
+        /// </summary>
+        public static readonly Plugin Plugin = new Plugin(DllName);
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_MIDI_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags, int Frequency = 0);
 
         [DllImport(DllName)]
         static extern int BASS_MIDI_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags, int Frequency = 0);
 
-		/// <summary>Create a stream from file.</summary>
+        /// <summary>Create a stream from file.</summary>
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default, int Frequency = 0)
         {
             return BASS_MIDI_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode, Frequency);
         }
 
-		/// <summary>Create a stream from Memory (IntPtr).</summary>
+        /// <summary>Create a stream from Memory (IntPtr).</summary>
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default, int Frequency = 0)
         {
             return BASS_MIDI_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags, Frequency);
         }
 
-		/// <summary>Create a stream from Memory (byte[]).</summary>
+        /// <summary>Create a stream from Memory (byte[]).</summary>
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags, int Frequency = 0)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -1180,11 +1187,11 @@ namespace ManagedBass.Midi
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_MIDI_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user, int Frequency = 0);
 
-		/// <summary>Create a stream using User File Procedures.</summary>
+        /// <summary>Create a stream using User File Procedures.</summary>
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr), int Frequency = 0)
         {
             var h = BASS_MIDI_StreamCreateFileUser(System, Flags, Procedures, User, Frequency);
@@ -1198,7 +1205,7 @@ namespace ManagedBass.Midi
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_MIDI_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User, int Frequency = 0);
 
-		/// <summary>Create a stream from Url.</summary>
+        /// <summary>Create a stream from Url.</summary>
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr), int Frequency = 0)
         {
             var h = BASS_MIDI_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User, Frequency);
@@ -1208,7 +1215,7 @@ namespace ManagedBass.Midi
 
             return h;
         }
-		    }
+    }
 }
 
 #if WINDOWS
@@ -1985,8 +1992,9 @@ namespace ManagedBass{
 }
 #endif
 
-namespace ManagedBass{
-        public static partial class Bass
+namespace ManagedBass
+{
+    public static partial class Bass
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -2022,14 +2030,14 @@ namespace ManagedBass{
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		
-		        [DllImport(DllName, CharSet = CharSet.Unicode)]
+
+        [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_StreamCreateFile(bool mem, string file, long offset, long length, BassFlags flags);
 
         [DllImport(DllName)]
         static extern int BASS_StreamCreateFile(bool mem, IntPtr file, long offset, long length, BassFlags flags);
 
-		
+
         /// <summary>
         /// Creates a sample stream from an MP3, MP2, MP1, OGG, WAV, AIFF or plugin supported file.
         /// </summary>
@@ -2089,13 +2097,13 @@ namespace ManagedBass{
         /// <exception cref="Errors.Memory">There is insufficient memory.</exception>
         /// <exception cref="Errors.No3D">Could not initialize 3D support.</exception>
         /// <exception cref="Errors.Unknown">Some other mystery problem!</exception>  
-      
+
         public static int CreateStream(string File, long Offset = 0, long Length = 0, BassFlags Flags = BassFlags.Default)
         {
             return BASS_StreamCreateFile(false, File, Offset, Length, Flags | BassFlags.Unicode);
         }
 
-		
+
         /// <summary>
         /// Creates a sample stream from an MP3, MP2, MP1, OGG, WAV, AIFF or plugin supported memory IntPtr.
         /// </summary>
@@ -2159,13 +2167,13 @@ namespace ManagedBass{
         /// <exception cref="Errors.Memory">There is insufficient memory.</exception>
         /// <exception cref="Errors.No3D">Could not initialize 3D support.</exception>
         /// <exception cref="Errors.Unknown">Some other mystery problem!</exception>
-      
+
         public static int CreateStream(IntPtr Memory, long Offset, long Length, BassFlags Flags = BassFlags.Default)
         {
             return BASS_StreamCreateFile(true, new IntPtr(Memory.ToInt64() + Offset), 0, Length, Flags);
         }
 
-		
+
         /// <summary>
         /// Creates a sample stream from an MP3, MP2, MP1, OGG, WAV, AIFF or plugin supported file in memory (byte[]).
         /// </summary>
@@ -2227,7 +2235,7 @@ namespace ManagedBass{
         /// <exception cref="Errors.Memory">There is insufficient memory.</exception>
         /// <exception cref="Errors.No3D">Could not initialize 3D support.</exception>
         /// <exception cref="Errors.Unknown">Some other mystery problem!</exception>
-      
+
         public static int CreateStream(byte[] Memory, long Offset, long Length, BassFlags Flags)
         {
             var GCPin = GCHandle.Alloc(Memory, GCHandleType.Pinned);
@@ -2239,11 +2247,11 @@ namespace ManagedBass{
 
             return Handle;
         }
-        
+
         [DllImport(DllName)]
         static extern int BASS_StreamCreateFileUser(StreamSystem system, BassFlags flags, [In, Out] FileProcedures procs, IntPtr user);
 
-		
+
         /// <summary>
         /// Creates a sample stream from an MP3, MP2, MP1, OGG, WAV, AIFF or plugin supported file via user callback functions.
         /// </summary>
@@ -2293,7 +2301,7 @@ namespace ManagedBass{
         /// <exception cref="Errors.Memory">There is insufficient memory.</exception>
         /// <exception cref="Errors.No3D">Could not initialize 3D support.</exception>
         /// <exception cref="Errors.Unknown">Some other mystery problem!</exception>
-      
+
         public static int CreateStream(StreamSystem System, BassFlags Flags, FileProcedures Procedures, IntPtr User = default(IntPtr))
         {
             var h = BASS_StreamCreateFileUser(System, Flags, Procedures, User);
@@ -2307,7 +2315,7 @@ namespace ManagedBass{
         [DllImport(DllName, CharSet = CharSet.Unicode)]
         static extern int BASS_StreamCreateURL(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User);
 
-		
+
         /// <summary>
         /// Creates a sample stream from an MP3, MP2, MP1, OGG, WAV, AIFF or plugin supported file on the internet, optionally receiving the downloaded data in a callback.
         /// </summary>
@@ -2370,7 +2378,7 @@ namespace ManagedBass{
         /// <exception cref="Errors.Memory">There is insufficient memory.</exception>
         /// <exception cref="Errors.No3D">Could not initialize 3D support.</exception>
         /// <exception cref="Errors.Unknown">Some other mystery problem!</exception>
-      
+
         public static int CreateStream(string Url, int Offset, BassFlags Flags, DownloadProcedure Procedure, IntPtr User = default(IntPtr))
         {
             var h = BASS_StreamCreateURL(Url, Offset, Flags | BassFlags.Unicode, Procedure, User);
@@ -2380,13 +2388,13 @@ namespace ManagedBass{
 
             return h;
         }
-		    }
+    }
 }
 
 
 namespace ManagedBass.Fx
 {
-        public static partial class BassFx
+    public static partial class BassFx
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -2422,8 +2430,8 @@ namespace ManagedBass.Fx
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		
-		    }
+
+    }
 }
 
 #if WINDOWS || LINUX
@@ -2473,7 +2481,7 @@ namespace ManagedBass.Cd
 
 namespace ManagedBass.Enc
 {
-        public static partial class BassEnc
+    public static partial class BassEnc
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -2509,14 +2517,14 @@ namespace ManagedBass.Enc
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		
-		    }
+
+    }
 }
 
 
 namespace ManagedBass.Mix
 {
-        public static partial class BassMix
+    public static partial class BassMix
     {
 #if __IOS__
         const string DllName = "__Internal";
@@ -2552,8 +2560,8 @@ namespace ManagedBass.Mix
         public static bool Unload() => DynamicLibrary.Unload(hLib);
 #endif
 
-        		
-		    }
+
+    }
 }
 
 #if WINDOWS

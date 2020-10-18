@@ -1,5 +1,4 @@
-﻿#if WINDOWS || LINUX || __ANDROID__
-namespace ManagedBass
+﻿namespace ManagedBass
 {
     public static partial class BassAac
     {
@@ -22,4 +21,3 @@ namespace ManagedBass
         }
     }
 }
-#endif
