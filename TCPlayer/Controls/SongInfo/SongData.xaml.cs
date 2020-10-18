@@ -117,7 +117,7 @@ namespace TCPlayer.Controls.SongInfo
 
         private void VisualContainer_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (App.WasActivated) return;
+            if (Program.WasActivated) return;
 
             if (WaveForm.Visibility == Visibility.Visible)
             {

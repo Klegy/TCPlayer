@@ -30,51 +30,12 @@ namespace TCPlayer
     /// </summary>
     public partial class App : Application
     {
-        private const string AppName = "TCPlayer";
         internal const string Formats = "*.mp1;*.mp2;*.mp3;*.mp3pro;*.mp4;*.m4a;*.m4b;*.aac;*.flac;*.ac3;*.wv;*.wav;*.wma;*.asf;*.ogg;*.midi;*.mid;*.rmi;*.kar;*.xm;*.it;*.s3m;*.mod;*.mtm;*.umx;*.mo3;*.ape;*.mpc;*.mp+;*.mpp;*.ofr;*.ofs;*.spx;*.tta;*.dsf;*.dsdiff;*.opus";
         internal const string Playlists = "*.pls;*.m3u;*.wpl;*.asx";
 
         internal static Dictionary<string, string> CdData;
         internal static string DiscID;
         internal static HashSet<string> RecentUrls;
-
-        private static bool _active;
-        private static bool _prevactive;
-
-        [STAThread]
-        public static void Main()
-        {
-            var si = new SingleInstanceApp(AppName);
-            si.ReceiveString += Si_ReceiveString;
-            if (si.IsFirstInstance)
-            {
-                var hasher = new EngineHashChecker();
-                if (!hasher.CheckHashes())
-                {
-                    MessageBox.Show(TCPlayer.Properties.Resources.Error_CorruptDll,
-                                    TCPlayer.Properties.Resources.Error_Title,
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Error);
-                    return;
-                }
-                SetAppCulture();
-                var application = new App();
-                CdData = new Dictionary<string, string>();
-                DiscID = "";
-                RecentUrls = new HashSet<string>();
-                FillUrlList();
-                application.InitializeComponent();
-                _prevactive = true;
-                _active = true;
-                application.ShutdownMode = ShutdownMode.OnMainWindowClose;
-                application.MainWindow = new MainWindow();
-                application.MainWindow.Activated += MainWindow_Activated;
-                application.MainWindow.Deactivated += MainWindow_Deactivated;
-                application.Run(application.MainWindow);
-                si.Close();
-            }
-            else si.SubmitParameters();
-        }
 
         internal static void SetAppCulture()
         {
@@ -95,32 +56,7 @@ namespace TCPlayer
             }
         }
 
-        private static void MainWindow_Deactivated(object sender, EventArgs e)
-        {
-            _prevactive = _active;
-            _active = false;
-        }
-
-        private static void MainWindow_Activated(object sender, EventArgs e)
-        {
-            _prevactive = _active;
-            _active = true;
-        }
-
-        public static bool WasActivated
-        {
-            get
-            {
-                bool decision = _prevactive == false && _active == true;
-                if (decision)
-                {
-                    _prevactive = true;
-                }
-                return decision;
-            }
-        }
-
-        private static void FillUrlList()
+        internal static void FillUrlList()
         {
             if (!TCPlayer.Properties.Settings.Default.RememberRecentURLs) return;
             var items = TCPlayer.Properties.Settings.Default.RecentURLs.Split('\n', '\r');
@@ -137,16 +73,6 @@ namespace TCPlayer
             var sb = new System.Text.StringBuilder();
             foreach (var url in RecentUrls) sb.AppendLine(url);
             TCPlayer.Properties.Settings.Default.RecentURLs = sb.ToString();
-        }
-
-        private static void Si_ReceiveString(string obj)
-        {
-            var files = obj.Split('\n');
-            App.Current.Dispatcher.Invoke(() =>
-            {
-                var mw = App.Current.MainWindow as MainWindow;
-                mw.DoLoadAndPlay(files);
-            });
         }
 
         public static List<CultureInfo> AvailableCultures

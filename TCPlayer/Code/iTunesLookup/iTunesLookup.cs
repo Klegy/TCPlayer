@@ -21,7 +21,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Script.Serialization;
+using System.Text.Json;
 using System.Windows.Media.Imaging;
 
 namespace TCPlayer.Code.iTunesLookup
@@ -49,9 +49,7 @@ namespace TCPlayer.Code.iTunesLookup
 
                         var response = client.DownloadString(fulladdress);
 
-                        var jsonSerializer = new JavaScriptSerializer();
-
-                        var responseObject = jsonSerializer.Deserialize<Rootobject>(response);
+                        var responseObject = JsonSerializer.Deserialize<Rootobject>(response);
 
                         string artwork = responseObject.results[0].artworkUrl100;
                         artwork = artwork.Replace("100x100", "600x600");
