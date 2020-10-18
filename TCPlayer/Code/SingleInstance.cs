@@ -28,11 +28,10 @@ namespace TCPlayer.Code
     public class SingleInstanceApp
     {
         private const string EXIT_STRING = "__EXIT__";
-        private static Mutex _mutex;
-        private bool _isfirst;
+        private readonly Mutex _mutex;
+        private readonly bool _isfirst;
         private bool _isRunning = false;
-        private Thread _server;
-        private string _UID;
+        private readonly string _UID;
 
         private static string GetUnique(string AppName)
         {
@@ -50,7 +49,7 @@ namespace TCPlayer.Code
 
         private void ServerThread()
         {
-            while (true)
+            do
             {
                 string text;
                 using (var server = new NamedPipeServerStream(_UID))
@@ -66,18 +65,18 @@ namespace TCPlayer.Code
                 if (text == EXIT_STRING) break;
 
                 ReceiveString?.Invoke(text);
-                if (_isRunning == false) break;
             }
+            while (_isRunning);
         }
 
-        private bool Write(string text, int connectTimeout = 300)
+        private void Write(string text, int connectTimeout = 300)
         {
             using (var client = new NamedPipeClientStream(_UID))
             {
                 try { client.Connect(connectTimeout); }
-                catch { return false; }
+                catch { return; }
 
-                if (!client.IsConnected) return false;
+                if (!client.IsConnected) return;
 
                 using (StreamWriter writer = new StreamWriter(client))
                 {
@@ -85,7 +84,6 @@ namespace TCPlayer.Code
                     writer.Flush();
                 }
             }
-            return true;
         }
 
         public event Action<string> ReceiveString;
@@ -94,7 +92,7 @@ namespace TCPlayer.Code
         {
             _UID = GetUnique(AppName);
             _mutex = new Mutex(true, _UID, out _isfirst);
-            _server = new Thread(ServerThread);
+             var _server = new Thread(ServerThread);
             _isRunning = true;
             _server.Start();
         }
@@ -111,6 +109,7 @@ namespace TCPlayer.Code
             Write(EXIT_STRING);
             Thread.Sleep(3); // give time for thread shutdown
         }
+
         public void SubmitParameters()
         {
             var pars = Environment.GetCommandLineArgs();
