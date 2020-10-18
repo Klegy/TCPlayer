@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <OutputPath>..\bin\$(Configuration)\</OutputPath>
+    <Nullable>enable</Nullable>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PackageId>ManagedBass.PInvoke</PackageId>
+    <Version>0.4.0</Version>
+    <Authors>Mathew Sachin</Authors>
+    <Copyright>(c) 2016 Mathew Sachin</Copyright>
+    <Company>Mathew Sachin</Company>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <Description>Free Open-Source  .Net PInvoke Library for Un4seen Bass and its AddOns</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+</Project>
