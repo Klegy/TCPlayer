@@ -131,17 +131,17 @@ namespace TCPlayer.Controls
         private async void Drive_Click(object sender, RoutedEventArgs e)
         {
             var menuitem = sender as MenuItem;
-            var drive = menuitem.Header.ToString();
+            var drive = menuitem?.Header?.ToString();
             var type = DriveType.Removable;
 
-            Enum.TryParse(menuitem.Tag.ToString(), out type);
+            Enum.TryParse(menuitem?.Tag?.ToString(), out type);
 
             var config = new JobRunnerConfiguration<string, IEnumerable<string>>
             {
                 JobDescription = "Searching Device for playable content",
                 JobTitle = "Loading...",
                 ReportTaskBarProgress = true,
-                JobInput = drive,
+                JobInput = drive ?? "",
             };
 
             try
@@ -224,7 +224,8 @@ namespace TCPlayer.Controls
             if (PlaylistView.SelectedItems.Count == 0) return;
             while (PlaylistView.SelectedItems.Count > 0)
             {
-                _list.Remove((string)PlaylistView.SelectedItems[0]);
+                if (PlaylistView.SelectedItems[0] is string item)
+                    _list.Remove(item);
             }
         }
 
@@ -243,7 +244,7 @@ namespace TCPlayer.Controls
                         foreach (var entry in _list)
                         {
                             var edir = Path.GetDirectoryName(entry);
-                            if (edir.StartsWith(targetdir))
+                            if (edir != null && targetdir != null && edir.StartsWith(targetdir))
                             {
                                 var line = entry.Replace(targetdir + "\\", "");
                                 contents.WriteLine(line);
@@ -290,7 +291,7 @@ namespace TCPlayer.Controls
             _list.AddRange(sorted);
         }
 
-        public event RoutedEventHandler ItemDoubleClcik;
+        public event RoutedEventHandler? ItemDoubleClcik;
 
         public PlayList()
         {
@@ -312,7 +313,7 @@ namespace TCPlayer.Controls
             set { SetValue(IndexProperty, value); }
         }
 
-        public string SelectedItem
+        public string? SelectedItem
         {
             get
             {

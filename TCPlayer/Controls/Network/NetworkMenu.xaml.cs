@@ -46,13 +46,13 @@ namespace TCPlayer.Controls.Network
             private set;
         }
 
-        public string Artist
+        public string? Artist
         {
             get { return SearchArtist.UrlParameter; }
             set { SearchArtist.UrlParameter = value; }
         }
 
-        public string Song
+        public string? Song
         {
             get { return SearchSong.UrlParameter; }
             set { SearchSong.UrlParameter = value; }
