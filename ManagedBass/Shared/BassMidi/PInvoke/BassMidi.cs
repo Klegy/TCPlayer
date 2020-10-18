@@ -341,7 +341,7 @@ namespace ManagedBass.Midi
         /// <exception cref="Errors.NotAvailable">The stream is for real-time events only, so does not have an event sequence.</exception>
         /// <exception cref="Errors.Parameter"><paramref name="Track" /> is not valid.</exception>
         [DllImport(DllName, EntryPoint = "BASS_MIDI_StreamGetEvents")]
-        public static extern int StreamGetEvents(int Handle, int Track, MidiEventType Filter, [In, Out] MidiEvent[] Events);
+        public static extern int StreamGetEvents(int Handle, int Track, MidiEventType Filter, [In, Out] MidiEvent[]? Events);
 
         /// <summary>
         /// Retrieves the events in a MIDI file stream.
@@ -353,7 +353,7 @@ namespace ManagedBass.Midi
         /// <exception cref="Errors.Handle"><paramref name="Handle" /> is not valid.</exception>
         /// <exception cref="Errors.NotAvailable">The stream is for real-time events only, so does not have an event sequence.</exception>
         /// <exception cref="Errors.Parameter"><paramref name="Track" /> is not valid.</exception>
-        public static MidiEvent[] StreamGetEvents(int Handle, int Track, MidiEventType Filter)
+        public static MidiEvent[]? StreamGetEvents(int Handle, int Track, MidiEventType Filter)
         {
             var count = StreamGetEvents(Handle, Track, Filter, null);
 
@@ -397,7 +397,7 @@ namespace ManagedBass.Midi
         /// <param name="Handle">The MIDI stream to retrieve the soundfont configuration of... 0 = get default soundfont configuration.</param>
         /// <returns>An array of <see cref="MidiFont" /> configuration entries if successfull - or <see langword="null" /> on error.</returns>
         /// <exception cref="Errors.Handle"><paramref name="Handle" /> is not valid.</exception>
-        public static MidiFont[] StreamGetFonts(int Handle)
+        public static MidiFont[]? StreamGetFonts(int Handle)
         {
             var count = StreamGetFontsCount(Handle);
 
@@ -432,7 +432,7 @@ namespace ManagedBass.Midi
         /// <param name="Handle">The MIDI stream to retrieve the soundfont configuration of... 0 = get default soundfont configuration.</param>
         /// <returns>An array of <see cref="MidiFontEx" /> configuration entries if successfull - or <see langword="null" /> on error.</returns>
         /// <exception cref="Errors.Handle"><paramref name="Handle" /> is not valid.</exception>
-        public static MidiFontEx[] StreamGetFontsEx(int Handle)
+        public static MidiFontEx[]? StreamGetFontsEx(int Handle)
         {
             var count = StreamGetFontsCount(Handle);
 
@@ -522,7 +522,7 @@ namespace ManagedBass.Midi
         /// <exception cref="Errors.Type"><paramref name="Type" /> is not valid.</exception>
         /// <exception cref="Errors.Parameter"><paramref name="Track" /> is not valid.</exception>
         [DllImport(DllName, EntryPoint = "BASS_MIDI_StreamGetMarks")]
-        public static extern int StreamGetMarks(int Handle, int Track, MidiMarkerType Type, [In, Out] MidiMarker[] Marks);
+        public static extern int StreamGetMarks(int Handle, int Track, MidiMarkerType Type, [In, Out] MidiMarker[]? Marks);
 
         /// <summary>
         /// Retrieves the markers in a MIDI file stream.
@@ -543,7 +543,7 @@ namespace ManagedBass.Midi
         /// <exception cref="Errors.Handle"><paramref name="Handle" /> is not valid.</exception>
         /// <exception cref="Errors.Type"><paramref name="Type" /> is not valid.</exception>
         /// <exception cref="Errors.Parameter"><paramref name="Track" /> is not valid.</exception>
-        public static MidiMarker[] StreamGetMarks(int Handle, int Track, MidiMarkerType Type)
+        public static MidiMarker[]? StreamGetMarks(int Handle, int Track, MidiMarkerType Type)
         {
             var markCount = StreamGetMarks(Handle, Track, Type, null);
 

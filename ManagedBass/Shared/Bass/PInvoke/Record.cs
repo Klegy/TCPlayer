@@ -365,7 +365,7 @@ namespace ManagedBass
         /// <exception cref="Errors.Init"><see cref="RecordInit" /> has not been successfully called - there are no initialized devices.</exception>
         /// <exception cref="Errors.Parameter"><paramref name="Input" /> is invalid.</exception>
         /// <exception cref="Errors.NotAvailable">A master input is not available.</exception>
-        public static string RecordGetInputName(int Input)
+        public static string? RecordGetInputName(int Input)
         {
             var ptr = BASS_RecordGetInputName(Input);
 

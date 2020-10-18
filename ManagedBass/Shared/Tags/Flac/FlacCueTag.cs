@@ -36,7 +36,7 @@ namespace ManagedBass.Flac
         /// <summary>
         /// The array of tracks or <see langword="null" />.
         /// </summary>
-        public FlacCueTrack[] Tracks
+        public FlacCueTrack[]? Tracks
 		{
 			get
 			{

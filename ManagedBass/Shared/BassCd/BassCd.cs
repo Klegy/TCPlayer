@@ -486,7 +486,7 @@ namespace ManagedBass.Cd
         /// <exception cref="Errors.Parameter"><paramref name="ID" /> is invalid.</exception>
         /// <exception cref="Errors.NotAvailable">The CD does not have a UPC, ISRC or CD-TEXT info, or the CDDB Read entry number is not valid.</exception>
         /// <exception cref="Errors.Unknown">Some other mystery problem!</exception>
-        public static string GetID(int Drive, CDID ID)
+        public static string? GetID(int Drive, CDID ID)
         {
             var ptr = BASS_CD_GetID(Drive, ID);
             

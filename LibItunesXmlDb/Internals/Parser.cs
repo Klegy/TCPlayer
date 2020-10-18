@@ -13,14 +13,14 @@ namespace Webmaster442.LibItunesXmlDb.Internals
         {
             return (from keyNode in track.Descendants("key")
                     where keyNode.Value == keyValue
-                    select (keyNode.NextNode as XElement).Name).FirstOrDefault() == "true";
+                    select (keyNode.NextNode as XElement)?.Name).FirstOrDefault() == "true";
         }
 
         public static string ParseStringValue(this XElement track, string keyValue)
         {
             return (from key in track.Descendants("key")
                     where key.Value == keyValue
-                    select (key.NextNode as XElement).Value).FirstOrDefault();
+                    select (key.NextNode as XElement)?.Value).FirstOrDefault();
         }
 
         public static long ParseLongValue(this XElement track, string keyValue)
@@ -60,7 +60,7 @@ namespace Webmaster442.LibItunesXmlDb.Internals
         public static string UrlDecode(string url)
         {
             if (string.IsNullOrEmpty(url))
-                return null;
+                return string.Empty;
 
             if (url.StartsWith("file://localhost/"))
             {
@@ -99,7 +99,7 @@ namespace Webmaster442.LibItunesXmlDb.Internals
             return decode;
         }
 
-        public static Track CreateTrack(XElement trackElement, bool exludeNotExistingFiles)
+        public static Track? CreateTrack(XElement trackElement, bool exludeNotExistingFiles)
         {
             var path = UrlDecode(ParseStringValue(trackElement, "Location"));
 

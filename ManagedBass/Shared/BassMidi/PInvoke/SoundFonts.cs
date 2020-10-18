@@ -87,7 +87,7 @@ namespace ManagedBass.Midi
 		/// <returns>If successful, an array of presets is returned, else <see langword="null" /> is returned. Use <see cref="Bass.LastError" /> to get the error code.</returns>
 		/// <remarks>The presets are delivered with the preset number in the LOWORD and the bank number in the HIWORD, and in numerically ascending order.</remarks>
         /// <exception cref="Errors.Handle"><paramref name="Handle" /> is not valid.</exception>
-        public static int[] FontGetPresets(int Handle)
+        public static int[]? FontGetPresets(int Handle)
         {
             MidiFontInfo info;
             

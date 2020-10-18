@@ -17,7 +17,7 @@ namespace ManagedBass.Ape
         /// <summary>
         /// The binary tag data.
         /// </summary>
-        public byte[] Data
+        public byte[]? Data
         {
             get
             {
@@ -33,7 +33,7 @@ namespace ManagedBass.Ape
         /// <summary>
         /// The name of the tag.
         /// </summary>
-        public string Key => key == IntPtr.Zero ? null : Marshal.PtrToStringAnsi(key);
+        public string? Key => key == IntPtr.Zero ? null : Marshal.PtrToStringAnsi(key);
 
         /// <summary>
         /// The size of data in bytes.
@@ -65,6 +65,6 @@ namespace ManagedBass.Ape
         /// <summary>
         /// Returns the Key of the binary tag.
         /// </summary>
-        public override string ToString() => Key;
+        public override string ToString() => Key ?? string.Empty;
     }
 }

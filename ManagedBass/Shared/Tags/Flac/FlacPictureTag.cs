@@ -23,7 +23,7 @@ namespace ManagedBass.Flac
         /// <summary>
 		/// A description of the picture.
 		/// </summary>
-		public string Description => Extensions.PtrToStringUtf8(description);
+		public string? Description => Extensions.PtrToStringUtf8(description);
         
         /// <summary>
 		/// The width in pixels.
@@ -55,7 +55,7 @@ namespace ManagedBass.Flac
         /// <summary>
 		/// The picture data.
 		/// </summary>
-		public byte[] Data
+		public byte[]? Data
 		{
 			get
 			{
@@ -71,7 +71,7 @@ namespace ManagedBass.Flac
         /// <summary>
 		/// Returns the image URL, if the <see cref="Mime" /> type is "--&gt;" - else <see langword="null" />.
 		/// </summary>
-        public string URL => Mime == "-->" ? null : Marshal.PtrToStringAnsi(data);
+        public string? URL => Mime == "-->" ? null : Marshal.PtrToStringAnsi(data);
 
         /// <summary>
         /// Read the tag at an <param name="Index"/> from a <param name="Channel"/>.

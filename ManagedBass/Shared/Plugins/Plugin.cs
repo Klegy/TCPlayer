@@ -58,7 +58,7 @@ namespace ManagedBass
         /// Load the plugin into memory.
         /// <param name="Folder">Folder to load the plugin from... <see langword="null"/> (default), Load from Current Directory.</param>
         /// </summary>
-        public void Load(string Folder = null)
+        public void Load(string? Folder = null)
         {
             if (_hPlugin != 0)
                 return;

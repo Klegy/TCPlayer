@@ -97,7 +97,7 @@ namespace TCPlayer
                                 ret.Add(culture);
                         }
                     }
-                    catch (CultureNotFoundException exc)
+                    catch (CultureNotFoundException)
                     {
                     }
                 }

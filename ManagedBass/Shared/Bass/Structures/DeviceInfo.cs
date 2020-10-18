@@ -37,7 +37,7 @@ namespace ManagedBass
         IntPtr driver;
         DeviceInfoFlags flags;
 
-        static string PtrToString(IntPtr ptr)
+        static string? PtrToString(IntPtr ptr)
         {
 #if WINDOWS
             return Bass.UnicodeDeviceInformation ? Extensions.PtrToStringUtf8(ptr)
@@ -50,14 +50,14 @@ namespace ManagedBass
         /// <summary>
         /// The description of the device.
         /// </summary>
-        public string Name => PtrToString(name);
+        public string? Name => PtrToString(name);
 
         /// <summary>
         /// The filename of the driver being used... <see langword="null" /> = no driver (ie. <see cref="Bass.NoSoundDevice"/> device).
         /// <para>On systems that can use both VxD and WDM drivers (Windows Me/98SE), this will reveal which Type of driver is being used.</para>
         /// <para>Further information can be obtained from the file using the GetFileVersionInfo Win32 API function.</para>
         /// </summary>
-        public string Driver => PtrToString(driver);
+        public string? Driver => PtrToString(driver);
 
         /// <summary>
         /// The device is the system default device.

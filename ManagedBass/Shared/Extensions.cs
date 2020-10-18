@@ -158,7 +158,7 @@ namespace ManagedBass
             return l.ToArray();
         }
 
-        static unsafe string PtrToStringUtf8(IntPtr Ptr, out int Size)
+        static unsafe string? PtrToStringUtf8(IntPtr Ptr, out int Size)
         {
             Size = 0;
 
@@ -182,7 +182,7 @@ namespace ManagedBass
         /// <summary>
         /// Returns a Unicode string from a pointer to a Utf-8 string.
         /// </summary>
-        public static string PtrToStringUtf8(IntPtr Ptr)
+        public static string? PtrToStringUtf8(IntPtr Ptr)
         {
             int size;
             return PtrToStringUtf8(Ptr, out size);

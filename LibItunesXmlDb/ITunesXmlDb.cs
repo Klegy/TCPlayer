@@ -26,6 +26,7 @@ namespace Webmaster442.LibItunesXmlDb
         {
             _xml = XDocument.Load(fileLocation);
             _options = options;
+            _tracks = new List<Track>();
         }
         #endregion
 

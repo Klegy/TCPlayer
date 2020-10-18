@@ -525,7 +525,7 @@ namespace ManagedBass.Wma
         /// <exception cref="Errors.WM9">The Windows Media modules (v9 or above) are not installed.</exception>
         /// <exception cref="Errors.NotAvailable">No codec could be found to support the specified sample format.</exception>
         /// <exception cref="Errors.Unknown">Some other mystery problem!</exception>
-        public static unsafe int[] EncodeGetRates(int Frequency, int Channels, WMAEncodeFlags Flags)
+        public static unsafe int[]? EncodeGetRates(int Frequency, int Channels, WMAEncodeFlags Flags)
         {
             var list = new List<int>();
 

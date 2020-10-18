@@ -41,7 +41,7 @@ namespace ManagedBass.Flac
         /// <summary>
         /// The array of indices or <see langword="null" />.
         /// </summary>
-        public FlacCueTrackIndex[] Indexes
+        public FlacCueTrackIndex[]? Indexes
 		{
 			get
 			{

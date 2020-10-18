@@ -7,7 +7,7 @@ namespace ManagedBass
     class ReferenceHolder
     {
         readonly Dictionary<Tuple<int, int>, object> _procedures = new Dictionary<Tuple<int, int>, object>();
-        readonly SyncProcedure _freeproc;
+        readonly SyncProcedure? _freeproc;
 
         public ReferenceHolder(bool Free = true)
         {

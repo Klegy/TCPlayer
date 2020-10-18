@@ -14,7 +14,7 @@ namespace ManagedBass
         [DllImport(DllName, EntryPoint = "FreeLibrary")]
         public static extern bool Unload(IntPtr hLib);
 
-        public static IntPtr Load(string DllName, string Folder)
+        public static IntPtr Load(string DllName, string? Folder)
         {
             var extName = $"{DllName}.dll";
 

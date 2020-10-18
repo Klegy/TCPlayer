@@ -22,7 +22,7 @@ namespace ManagedBass.Enc
         }
 
         [DllImport(DllName, CharSet = CharSet.Unicode)]
-        static extern int BASS_Encode_GetACMFormat(int handle, IntPtr form, int formlen, string title, int flags);
+        static extern int BASS_Encode_GetACMFormat(int handle, IntPtr form, int formlen, string? title, int flags);
 
         /// <summary>
         /// Presents the user with a list of available ACM (Audio Compression Manager) codec output formats to choose from.
@@ -53,7 +53,7 @@ namespace ManagedBass.Enc
         public static int GetACMFormat(int Handle,
                                        IntPtr Format = default(IntPtr),
                                        int FormatLength = 0,
-                                       string Title = null,
+                                       string? Title = null,
                                        ACMFormatFlags Flags = ACMFormatFlags.Default,
                                        WaveFormatTag Encoding = WaveFormatTag.Unknown)
         {

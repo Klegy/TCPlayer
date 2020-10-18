@@ -6,7 +6,7 @@ namespace Webmaster442.LibItunesXmlDb
     /// <summary>
     /// A class representing various parser options
     /// </summary>
-    public class ITunesXmlDbOptions : IEquatable<ITunesXmlDbOptions>
+    public sealed class ITunesXmlDbOptions : IEquatable<ITunesXmlDbOptions?>
     {
         /// <summary>
         /// Exclude tracks that don't exist on the user's system
@@ -29,49 +29,31 @@ namespace Webmaster442.LibItunesXmlDb
             ExcludeNonExistingFiles = false;
         }
 
-        /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return Equals(obj as ITunesXmlDbOptions);
         }
 
-        /// <inheritdoc/>
-        public bool Equals(ITunesXmlDbOptions other)
+        public bool Equals(ITunesXmlDbOptions? other)
         {
             return other != null &&
                    ExcludeNonExistingFiles == other.ExcludeNonExistingFiles &&
                    ParalelParsingEnabled == other.ParalelParsingEnabled;
         }
 
-        /// <inheritdoc/>
         public override int GetHashCode()
         {
-            var hashCode = 1323143269;
-            hashCode = hashCode * -1521134295 + ExcludeNonExistingFiles.GetHashCode();
-            hashCode = hashCode * -1521134295 + ParalelParsingEnabled.GetHashCode();
-            return hashCode;
+            return HashCode.Combine(ExcludeNonExistingFiles, ParalelParsingEnabled);
         }
 
-        /// <summary>
-        /// Compares two ITunesXmlDbOptions for equality
-        /// </summary>
-        /// <param name="options1">instance to compare</param>
-        /// <param name="options2">other instance to compare</param>
-        /// <returns>true, if the instances are equal, false if not</returns>
-        public static bool operator ==(ITunesXmlDbOptions options1, ITunesXmlDbOptions options2)
+        public static bool operator ==(ITunesXmlDbOptions? left, ITunesXmlDbOptions? right)
         {
-            return EqualityComparer<ITunesXmlDbOptions>.Default.Equals(options1, options2);
+            return EqualityComparer<ITunesXmlDbOptions?>.Default.Equals(left, right);
         }
 
-        /// <summary>
-        /// Compares two ITunesXmlDbOptions for inequality
-        /// </summary>
-        /// <param name="options1">instance to compare</param>
-        /// <param name="options2">other instance to compare</param>
-        /// <returns>true, if the instances are not equal, false if they are</returns>
-        public static bool operator !=(ITunesXmlDbOptions options1, ITunesXmlDbOptions options2)
+        public static bool operator !=(ITunesXmlDbOptions? left, ITunesXmlDbOptions? right)
         {
-            return !(options1 == options2);
+            return !(left == right);
         }
     }
 }

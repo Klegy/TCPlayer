@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using ManagedBass.Dsd;
+using System.Runtime.InteropServices;
 
 namespace ManagedBass.Tags
 {
@@ -9,34 +10,34 @@ namespace ManagedBass.Tags
     public class ID3v1Tag
     {
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-        char[] id;
+        char[]? id;
 
         /// <summary>
         /// Returns the Title (Max 30 characters).
         /// </summary>
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 30)]
-        public string Title;
+        public string? Title;
 
         /// <summary>
         /// Returns the Artist (Max 30 characters).
         /// </summary>
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 30)]
-        public string Artist;
+        public string? Artist;
 
         /// <summary>
         /// Returns the Album (Max 30 characters).
         /// </summary>
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 30)]
-        public string Album;
+        public string? Album;
 
         /// <summary>
         /// Returns the Year.
         /// </summary>
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 4)]
-        public string Year;
+        public string? Year;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 30)]
-        char[] comment;
+        char[]? comment;
 
         /// <summary>
         /// Genre ID.
@@ -221,6 +222,17 @@ namespace ManagedBass.Tags
         /// <summary>
         /// Gets the Track Number.
         /// </summary>
-        public int TrackNo => comment[28] == '\0' ? comment[29] : -1;
+        public int TrackNo
+        {
+            get
+            {
+                if (comment?.Length > 0)
+                    return comment[28] == '\0' ? comment[29] : -1;
+                return
+                    -1;
+            }
+        }
+            
+
     }
 }

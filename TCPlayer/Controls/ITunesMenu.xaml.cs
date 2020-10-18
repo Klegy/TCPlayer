@@ -40,7 +40,7 @@ namespace TCPlayer.Controls
             {
                 MenuItem subitem = new MenuItem
                 {
-                    Tag = string.Copy(menuTarget.Tag as string),
+                    Tag = menuTarget.Tag as string,
                     Header = item
                 };
                 subitem.Click += Subitem_Click;

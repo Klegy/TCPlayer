@@ -125,14 +125,14 @@ namespace ManagedBass.Mix
         public static extern int SplitStreamGetSource(int Handle);
 
         [DllImport(DllName)]
-        static extern int BASS_Split_StreamGetSplits(int handle, [In, Out] int[] array, int length);
+        static extern int BASS_Split_StreamGetSplits(int handle, [In, Out] int[]? array, int length);
 
         /// <summary>
         /// Retrieves the channel's splitters.
         /// </summary>
         /// <param name="Handle">The handle to check.</param>
         /// <returns>The array of splitter handles (<see langword="null" /> on error, use <see cref="Bass.LastError" /> to get the error code).</returns>
-        public static int[] SplitStreamGetSplits(int Handle)
+        public static int[]? SplitStreamGetSplits(int Handle)
         {
             var num = BASS_Split_StreamGetSplits(Handle, null, 0);
 

@@ -39,7 +39,7 @@ namespace ManagedBass.Ape
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -150,7 +150,7 @@ namespace ManagedBass.Flac
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -261,7 +261,7 @@ namespace ManagedBass
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -372,7 +372,7 @@ namespace ManagedBass
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -483,7 +483,7 @@ namespace ManagedBass
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -594,7 +594,7 @@ namespace ManagedBass
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -705,7 +705,7 @@ namespace ManagedBass
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -816,7 +816,7 @@ namespace ManagedBass
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -927,7 +927,7 @@ namespace ManagedBass
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -1038,7 +1038,7 @@ namespace ManagedBass.Dsd
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -1143,7 +1143,7 @@ namespace ManagedBass.Midi
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -1249,7 +1249,7 @@ namespace ManagedBass.Wma
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -1361,7 +1361,7 @@ namespace ManagedBass.Adx
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -1472,7 +1472,7 @@ namespace ManagedBass{
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -1583,7 +1583,7 @@ namespace ManagedBass{
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -1694,7 +1694,7 @@ namespace ManagedBass{
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -1805,7 +1805,7 @@ namespace ManagedBass{
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -1916,7 +1916,7 @@ namespace ManagedBass{
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -2021,7 +2021,7 @@ namespace ManagedBass
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -2421,7 +2421,7 @@ namespace ManagedBass.Fx
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -2465,7 +2465,7 @@ namespace ManagedBass.Cd
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -2508,7 +2508,7 @@ namespace ManagedBass.Enc
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -2551,7 +2551,7 @@ namespace ManagedBass.Mix
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -2595,7 +2595,7 @@ namespace ManagedBass.Asio
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -2639,7 +2639,7 @@ namespace ManagedBass.Wasapi
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.
@@ -2683,7 +2683,7 @@ namespace ManagedBass.Winamp
 		/// This method can be used to make sure, that this library has been loaded.
 		/// </para>
 		/// </remarks>
-        public static bool Load(string Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
+        public static bool Load(string? Folder = null) => (hLib = DynamicLibrary.Load(DllName, Folder)) != IntPtr.Zero;
 		
 		/// <summary>
 		/// Unloads this library from Memory.

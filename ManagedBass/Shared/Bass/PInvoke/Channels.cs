@@ -762,7 +762,7 @@ namespace ManagedBass
         /// <exception cref="Errors.NotPlaying">The channel is not playing.</exception>
         /// <exception cref="Errors.Ended">The decoding channel has reached the end.</exception>
         /// <exception cref="Errors.BufferLost">Should not happen... check that a valid window handle was used with <see cref="Init" />.</exception>
-        public static float[] ChannelGetLevel(int Handle, float Length, LevelRetrievalFlags Flags)
+        public static float[]? ChannelGetLevel(int Handle, float Length, LevelRetrievalFlags Flags)
         {
             var n = ChannelGetInfo(Handle).Channels;
 

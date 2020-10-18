@@ -17,21 +17,21 @@ namespace ManagedBass
         /// <summary>
         /// Callback function to close the file.
         /// </summary>
-        public FileCloseProcedure Close;
+        public FileCloseProcedure? Close;
 
         /// <summary>
         /// Callback function to get the file Length.
         /// </summary>
-        public FileLengthProcedure Length;
+        public FileLengthProcedure? Length;
 
         /// <summary>
         /// Callback function to read from the file.
         /// </summary>
-        public FileReadProcedure Read;
+        public FileReadProcedure? Read;
 
         /// <summary>
         /// Callback function to seek in the file. Not used by buffered file streams.
         /// </summary>
-        public FileSeekProcedure Seek;
+        public FileSeekProcedure? Seek;
     }
 }

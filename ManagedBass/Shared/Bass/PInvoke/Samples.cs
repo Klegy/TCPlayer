@@ -283,7 +283,7 @@ namespace ManagedBass
 
         #region SampleGetChannels
         [DllImport(DllName)]
-        static extern int BASS_SampleGetChannels(int handle, [In, Out] int[] channels);
+        static extern int BASS_SampleGetChannels(int handle, [In, Out] int[]? channels);
 
         /// <summary>
         /// Retrieves an array of a sample's existing channels.
@@ -298,7 +298,7 @@ namespace ManagedBass
         /// <para>If you need to determine whether a particular sample channel still exists, it is simplest to just try it in a function call.</para>
         /// </remarks>
         /// <exception cref="Errors.Handle"><paramref name="Handle" /> is not a valid sample handle.</exception>
-        public static int[] SampleGetChannels(int Handle)
+        public static int[]? SampleGetChannels(int Handle)
         {
             var count = BASS_SampleGetChannels(Handle, null);
 
